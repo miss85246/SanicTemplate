@@ -16,6 +16,7 @@ class ServerConfig(DictConfig):
     项目配置文件, 所有的配置都在此类下实现
     """
     FALLBACK_ERROR_FORMAT = "json"  # 设定错误返回格式为Json
+
     SERVER_CONFIG = {
         "workers": 1,
         "access_log": False,
@@ -23,19 +24,28 @@ class ServerConfig(DictConfig):
         "port": 6100,
         "debug": False
     }
+
     DB_CONFIG = {
         "db_type": "mysql",
-        "host": "localhost",
+        "host": "192.168.3.128",
         "port": 3306,
         "user": "root",
-        "passwd": "123456",
+        "passwd": "root",
         "database": "test",
         "pool_size": 8,
         "pool_recycle": 3600,
         "pool_pre_ping": True,
         "echo": False,
-        "migrate": True
+        "migrate": False
 
+    }
+
+    ES_CONFIG = {
+        "nodes": [
+            {"host": "192.168.3.128", "port": "9200"}
+        ],
+        "username": "elastic",
+        "password": "123456"
     }
 
 
