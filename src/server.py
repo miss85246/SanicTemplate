@@ -12,7 +12,7 @@ from sanic import Sanic
 from conf import config
 from middlewares import RequestMiddleware, ResponseMiddleware
 from route import server_bp
-from helpers import DBClient
+from helpers import DBClient, EsClient
 
 server_app = Sanic("server", log_config=config.LOGGING_CONFIG)
 server_app.config.update_config(config)
@@ -24,6 +24,7 @@ async def server_init(_, __):
     """用于初始化挂载存储中间件"""
     server_app.ctx.db = DBClient(**server_app.config.DB_CONFIG)
     await server_app.ctx.db.session_init()
+    server_app.ctx.es = EsClient(**server_app.config.ES_CONFIG)
 
 
 @server_app.listener("after_server_start")

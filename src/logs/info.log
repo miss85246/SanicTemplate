@@ -1,0 +1,58 @@
+[2021-06-21 00:32:34 +0800] [INFO] Goin' Fast @ http://127.0.0.1:6100
+[2021-06-21 00:32:34 +0800] [INFO] Starting worker [9684]
+[2021-06-21 00:32:50 +0800] [ERROR] Exception occurred while handling uri: 'http://localhost:6100/test'
+Traceback (most recent call last):
+  File "E:\Codeing\Python\SanicTemplate\src\views\test_view.py", line 33, in post
+    assert db_result and es_result
+AssertionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Codeing\Python\.virtualenvs\SanicTemplate\lib\site-packages\sanic\app.py", line 724, in handle_request
+    response = await response
+  File "E:\Codeing\Python\.virtualenvs\SanicTemplate\lib\site-packages\sanic_dantic\sanic_function_dantic.py", line 39, in decorated_function
+    response = await f(request, *args, **kwargs)
+  File "E:\Codeing\Python\SanicTemplate\src\views\test_view.py", line 35, in post
+    await error_logger.error(msg="查询失败,没有返回结果", exception=e)
+TypeError: object NoneType can't be used in 'await' expression
+[2021-06-21 00:33:24 +0800] [INFO] Goin' Fast @ http://127.0.0.1:6100
+[2021-06-21 00:33:24 +0800] [INFO] Starting worker [14088]
+[2021-06-21 00:33:31 +0800] [ERROR] Exception occurred while handling uri: 'http://localhost:6100/test'
+Traceback (most recent call last):
+  File "E:\Codeing\Python\SanicTemplate\src\views\test_view.py", line 34, in post
+    assert db_result and es_result
+AssertionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Codeing\Python\.virtualenvs\SanicTemplate\lib\site-packages\sanic\app.py", line 724, in handle_request
+    response = await response
+  File "E:\Codeing\Python\.virtualenvs\SanicTemplate\lib\site-packages\sanic_dantic\sanic_function_dantic.py", line 39, in decorated_function
+    response = await f(request, *args, **kwargs)
+  File "E:\Codeing\Python\SanicTemplate\src\views\test_view.py", line 36, in post
+    await error_logger.error(msg="查询失败,没有返回结果", exception=e)
+TypeError: object NoneType can't be used in 'await' expression
+[2021-06-21 00:34:20 +0800] [INFO] Goin' Fast @ http://127.0.0.1:6100
+[2021-06-21 00:34:20 +0800] [INFO] Starting worker [19032]
+[2021-06-21 00:34:30 +0800] [ERROR] Exception occurred while handling uri: 'http://localhost:6100/test'
+Traceback (most recent call last):
+  File "E:\Codeing\Python\SanicTemplate\src\views\test_view.py", line 34, in post
+    assert db_result and es_result
+AssertionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Codeing\Python\.virtualenvs\SanicTemplate\lib\site-packages\sanic\app.py", line 724, in handle_request
+    response = await response
+  File "E:\Codeing\Python\.virtualenvs\SanicTemplate\lib\site-packages\sanic_dantic\sanic_function_dantic.py", line 39, in decorated_function
+    response = await f(request, *args, **kwargs)
+  File "E:\Codeing\Python\SanicTemplate\src\views\test_view.py", line 36, in post
+    await error_logger.error(msg="查询失败,没有返回结果", exception=e)
+TypeError: object NoneType can't be used in 'await' expression
+[2021-06-21 00:34:58 +0800] [INFO] Goin' Fast @ http://127.0.0.1:6100
+[2021-06-21 00:34:58 +0800] [INFO] Starting worker [12628]
+[2021-06-21 00:36:30 +0800] [INFO] Goin' Fast @ http://127.0.0.1:6100
+[2021-06-21 00:36:30 +0800] [INFO] Starting worker [15132]

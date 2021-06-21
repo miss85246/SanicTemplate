@@ -8,3 +8,4 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-06-16
 """
 from .mysql_helper import DBClient
+from .es_helper import EsClient

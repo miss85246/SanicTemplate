@@ -28,13 +28,14 @@ class TestView(HTTPMethodView):
 
         # 从读取的内容中提取相关联的文档信息
         try:
-            result = await request.app.ctx.db.example_func(filter_id=params.test)
-            assert result
+            db_result = await request.app.ctx.db.example_func(filter_id=params.test)
+            es_result = await request.app.ctx.es.some_functions()
+            assert db_result and es_result
         except AssertionError as e:
             await error_logger.error(msg="查询失败,没有返回结果", exception=e)
             return json_response(data={}, status_code=200, status="Not Found")
         except Exception as e:
             await error_logger.error("TestView异常报错", exception=e)
             return json_response(data={}, status_code=500, status="Failed")
-        result_data = {"test": params.test, "file_info": result}
+        result_data = {"test": params.test, "db_result": db_result, "es_result": es_result}
         return json_response(data=result_data, status_code=200, status="OK")

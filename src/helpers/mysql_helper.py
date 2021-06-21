@@ -15,8 +15,7 @@ from sqlalchemy.engine.result import ChunkedIteratorResult
 from sqlalchemy.orm import sessionmaker
 from typing import Any
 from models.sqlalchemy_model import Base, Test
-from sanic.log import error_logger
-from utils import *
+from utils import error_logger
 
 
 class DBClient:
@@ -34,7 +33,6 @@ class DBClient:
             echo=kwargs.get("echo", False)
         )
         self.migrate = kwargs.get("migrate", False)
-        self.async_session = None
         self.session = None
 
     async def session_init(self):
@@ -44,7 +42,7 @@ class DBClient:
                 await conn.run_sync(Base.metadata.drop_all)
                 await conn.run_sync(Base.metadata.create_all)
         self.session = sessionmaker(self.engine, expire_on_commit=False, class_=AsyncSession)
-        if self.migrate:  # 该部分仅做示例使用, 实际使用时视情况自由修改
+        if self.migrate:
             async with self.session.begin() as session:
                 session.add_all(
                     [Test(name="张三", age=11, sex="男"),
@@ -80,6 +78,6 @@ class DBClient:
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    db_client = DBClient("mysql", "localhost", 3306, "root", "123456", "test", migrate=True)
+    db_client = DBClient("mysql", "192.168.3.128", 3306, "root", "root", "test", migrate=True)
     loop.run_until_complete(db_client.session_init())
-    print(loop.run_until_complete(db_client.example_func()))
+    print(loop.run_until_complete(db_client.example_func(1)))

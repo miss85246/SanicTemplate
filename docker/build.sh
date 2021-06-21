@@ -1,5 +1,5 @@
 #!/bin/sh
-cd ..
+cd ../..
 
 TIME_NOW=$(date +%Y%m%d)
 UUID=$(uuidgen)
