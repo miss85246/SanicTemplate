@@ -1,8 +1,7 @@
+aiomysql==0.0.21
 sanic == 21.3.4
-sanic_dantic == 1.1.8
 requests==2.23.0
-
-elasticsearch~=7.13.1
+elasticsearch[async]~=7.13.1
 SQLAlchemy~=1.4.18
-aiologger~=0.6.1
 bson~=0.5.10
+sanic_dantic==1.1.8
