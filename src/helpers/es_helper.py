@@ -25,7 +25,7 @@ class EsClient:
             self.nodes = nodes
         self.client = AsyncElasticsearch(self.nodes, http_auth=(username, password), **kwargs)
 
-    async def some_functions(self):
+    async def example_functions(self):
         body = {"query": {"match_all": {}}}
         res = await self.client.search(index="logs-my_app-default",  body=body, size=1)
         return res
@@ -34,4 +34,4 @@ class EsClient:
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     es_client = EsClient(**config.ES_CONFIG)
-    print(loop.run_until_complete(es_client.some_functions()))
+    print(loop.run_until_complete(es_client.example_functions()))

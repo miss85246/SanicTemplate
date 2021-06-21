@@ -29,7 +29,7 @@ class TestView(HTTPMethodView):
         # 从读取的内容中提取相关联的文档信息
         try:
             db_result = await request.app.ctx.db.example_func(filter_id=params.test)
-            es_result = await request.app.ctx.es.some_functions()
+            es_result = await request.app.ctx.es.example_functions()
             assert db_result and es_result
         except AssertionError as e:
             await error_logger.error(msg="查询失败,没有返回结果", exception=e)

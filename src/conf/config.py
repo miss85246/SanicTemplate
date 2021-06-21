@@ -21,7 +21,7 @@ class ServerConfig(DictConfig):
         "workers": 1,
         "access_log": False,
         "host": "127.0.0.1",
-        "port": 6100,
+        "port": 5000,
         "debug": False
     }
 

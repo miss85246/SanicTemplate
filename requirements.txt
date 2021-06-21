@@ -5,3 +5,5 @@ elasticsearch[async]~=7.13.1
 SQLAlchemy~=1.4.18
 bson~=0.5.10
 sanic_dantic==1.1.8
+
+aioredis~=1.3.1
