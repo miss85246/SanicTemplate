@@ -8,49 +8,52 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-06-18
 """
 import asyncio
+
 import aioredis
 
-from utils import error_logger
 from conf import config
+from utils import error_logger
 
 
-class RedisClient:
-    """
-    暂时只支持创建普通的 redis 连接池, 后期添加哨兵模式的支持
-    """
+class AbstractRedisClient:
 
-    def __init__(self, host: str = None, port: str = None, password: str = None, mode="normal", **kwargs):
+    def __init__(self, host: str = None, port: str = None, password: str = None, mode: str = "normal", **kwargs):
         self.redis = None
         self.kwargs = kwargs
         self.mode = mode
         self.nodes = kwargs.get("nodes", [(host, port)])
         self.node_size = len(self.nodes)
         self.password = None or password
-        self.db = kwargs.pop("db", 0)
+        self.database = kwargs.pop("database", 0)
         self.timeout = kwargs.pop("timeout", 10)
         self.minsize = kwargs.pop("minsize", 1)
         self.maxsize = kwargs.pop("maxsize", 10)
         self.kwargs = kwargs
 
-    async def redis_init(self):
+    async def __async__init__(self):
         if self.redis is not None:
             raise ImportError("redis is already initialization")
-        if self.mode == "normal":
-            await self.redis_normal_client_init()
+        self.redis = await aioredis.create_redis_pool(f"redis://{self.nodes[0][0]}:{self.nodes[0][1]}",
+                                                      db=self.database,
+                                                      password=self.password,
+                                                      maxsize=self.maxsize,
+                                                      minsize=self.minsize,
+                                                      timeout=self.timeout,
+                                                      **self.kwargs)
 
-    async def redis_normal_client_init(self):
-        self.redis = await aioredis.create_redis_pool(
-            f"redis://{self.nodes[0][0]}:{self.nodes[0][1]}",
-            db=self.db,
-            password=self.password,
-            maxsize=self.maxsize,
-            minsize=self.minsize,
-            timeout=self.timeout,
-            **self.kwargs
-        )
+    def __await__(self):
+        return self.__async__init__().__await__()
+
+    def __del__(self):
+        self.redis.close()
+
+
+class RedisClient(AbstractRedisClient):
+
+    def __init__(self, host: str = None, port: str = None, password: str = None, mode: str = "normal", **kwargs):
+        super().__init__(host, port, password, mode, **kwargs)
 
     async def example_test(self):
-
         try:
             await self.redis.set("zy_test", "123")
             res = await self.redis.get("zy_test")
@@ -58,14 +61,9 @@ class RedisClient:
         except Exception as e:
             error_logger.error(msg="执行 example_test 出错", exception=e)
 
-    def __del__(self):
-        self.redis.close()
-
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    redis_cli = RedisClient(**config.REDIS_CONFIG)
-    loop.run_until_complete(redis_cli.redis_init())
+    redis_cli = loop.run_until_complete(RedisClient(**config.REDIS_CONFIG))
     print(loop.run_until_complete(redis_cli.example_test()))
     del redis_cli
-    # loop.run_until_complete(redis_cli.redis.wait_closed())
