@@ -17,6 +17,7 @@ from sqlalchemy.orm import sessionmaker
 
 from models.sqlalchemy_model import Base, Test
 from utils import error_logger
+from conf import config
 
 
 class AbstractDBClient:
@@ -30,10 +31,10 @@ class AbstractDBClient:
         self.host = host
         self.port = port
         self.database = database
-        self.pool_size = kwargs.get("pool_size", 8),
-        self.pool_recycle = kwargs.get("pool_recycle", 3600),
-        self.pool_timeout = kwargs.get("pool_timeout", 10),
-        self.pool_pre_ping = kwargs.get("pool_pre_ping", False),
+        self.pool_size = kwargs.get("pool_size", 8)
+        self.pool_recycle = kwargs.get("pool_recycle", 3600)
+        self.pool_timeout = kwargs.get("pool_timeout", 10)
+        self.pool_pre_ping = kwargs.get("pool_pre_ping", False)
         self.echo = kwargs.get("echo", False)
         self.migrate = kwargs.get("migrate", False)
         self.uri = f"{db_type}+{self.engine}://{username}:{password}@{host}:{port}/{database}"
@@ -99,5 +100,5 @@ class DBClient(AbstractDBClient):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    db_client = loop.run_until_complete(DBClient("mysql", "192.168.3.128", 3306, "root", "root", "test", migrate=True))
+    db_client = loop.run_until_complete(DBClient(**config.DB_CONFIG))
     print(loop.run_until_complete(db_client.example_func(1)))

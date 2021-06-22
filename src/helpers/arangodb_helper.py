@@ -16,6 +16,8 @@ from aioarangodb import ArangoClient
 
 from utils import error_logger
 
+from conf import config
+
 
 class AbstractArangoDBClient:
 
@@ -49,7 +51,7 @@ class ArangoDBClient(AbstractArangoDBClient):
 
 
 if __name__ == '__main__':
-    info = {"host": "localhost", "port": "8529", "database": "example", "username": "root", "password": "datagrand"}
     loop = asyncio.get_event_loop()
-    foo = loop.run_until_complete(ArangoDBClient(**info))
+    foo = loop.run_until_complete(ArangoDBClient(**config.ARANGO_CONFIG))
     print(loop.run_until_complete(foo.get_collections()))
+    print(loop.run_until_complete(foo.client.close()))
