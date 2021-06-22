@@ -7,13 +7,15 @@ Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
 """
-from unittest import TestCase
-import unittest
 import json
+import unittest
+from unittest import TestCase
+
 import requests
 
 
 class Test(TestCase):
+
     def setUp(self) -> None:
         pass
 

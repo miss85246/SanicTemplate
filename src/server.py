@@ -9,10 +9,11 @@ CreateTime: 2021-04-28
 """
 
 from sanic import Sanic
+
 from conf import config
+from helpers import DBClient, EsClient, RedisClient, RequestClient, ArangoDBClient, MongoClient
 from middlewares import RequestMiddleware, ResponseMiddleware
 from route import server_bp
-from helpers import DBClient, EsClient, RedisClient, RequestClient
 
 server_app = Sanic("server", log_config=config.LOGGING_CONFIG)
 server_app.config.update_config(config)
@@ -22,12 +23,12 @@ server_app.blueprint(server_bp)
 @server_app.listener("after_server_start")
 async def server_init(_, __):
     """用于初始化挂载存储中间件"""
-    server_app.ctx.db = DBClient(**server_app.config.DB_CONFIG)
-    await server_app.ctx.db.session_init()
-    server_app.ctx.es = EsClient(**server_app.config.ES_CONFIG)
-    server_app.ctx.redis = RedisClient(**server_app.config.REDIS_CONFIG)
-    await server_app.ctx.redis.redis_init()
+    server_app.ctx.database = await DBClient(**server_app.config.DB_CONFIG)
+    server_app.ctx.es = await EsClient(**server_app.config.ES_CONFIG)
+    server_app.ctx.redis = await RedisClient(**server_app.config.REDIS_CONFIG)
     server_app.ctx.request = RequestClient()
+    server_app.ctx.arangodb = await ArangoDBClient(**server_app.config.ARANGO_CONFIG)
+    server_app.ctx.mongo = await MongoClient(**server_app.config.MONGO_CONFIG)
 
 
 @server_app.listener("after_server_start")

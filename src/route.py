@@ -7,8 +7,9 @@ Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-06-16
 """
-from views import *
 from sanic.blueprints import Blueprint
+
+from views import *
 
 # 声明蓝图
 root_bp = Blueprint("root", url_prefix="/")

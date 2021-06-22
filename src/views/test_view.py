@@ -8,11 +8,12 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
 """
 
+from sanic.log import error_logger
 from sanic.views import HTTPMethodView
 from sanic_dantic import parse_params
+
 from models import TestDanticModel
 from utils import json_response
-from sanic.log import error_logger
 
 
 class TestView(HTTPMethodView):
@@ -28,7 +29,7 @@ class TestView(HTTPMethodView):
 
         # 从读取的内容中提取相关联的文档信息
         try:
-            db_result = await request.app.ctx.db.example_func(filter_id=params.test)
+            db_result = await request.app.ctx.database.example_func(filter_id=params.test)
             es_result = await request.app.ctx.es.example_functions()
             redis_result = await request.app.ctx.redis.example_test()
             request_result = await request.app.ctx.request.example_func()

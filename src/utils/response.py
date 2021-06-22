@@ -8,8 +8,9 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
 """
 
-from time import time
 from json import loads, dumps
+from time import time
+
 from sanic.response import json
 
 
