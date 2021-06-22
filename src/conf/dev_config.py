@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: config
-Description: 
+Description:
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
@@ -49,13 +49,13 @@ class ServerConfig(DictConfig):
     }
 
     REDIS_CONFIG = {
-        "host": "localhost",
-        "port": "26379",
-        "password": "f66sU9iP",
+        "host": "192.168.3.128",
+        "port": "6379",
+        # "password": "f66sU9iP",
         "minsize": 2,
         "maxsize": 8,
         "timeout": 10,
-        "db": 4
+        "db": 0
     }
 
 

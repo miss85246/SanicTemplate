@@ -8,4 +8,8 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-04-28
 """
 
-from .config import config
+DEBUG = True
+if not DEBUG:
+    from .config import config
+else:
+    from .dev_config import config
