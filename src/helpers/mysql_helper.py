@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: mysql_helper
-Description: MySQL 异步客户端
+Description: MySQL 异步客户端， 使用 SQLAlchemy 1.4.1 +
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-06-16

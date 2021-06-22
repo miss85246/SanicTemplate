@@ -9,3 +9,5 @@ CreateTime: 2021-06-16
 """
 from .mysql_helper import DBClient
 from .es_helper import EsClient
+from .redis_helper import RedisClient
+from .request_helper import RequestClient

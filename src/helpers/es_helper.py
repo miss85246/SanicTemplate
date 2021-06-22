@@ -27,7 +27,7 @@ class EsClient:
 
     async def example_functions(self):
         body = {"query": {"match_all": {}}}
-        res = await self.client.search(index="logs-my_app-default",  body=body, size=1)
+        res = await self.client.search(index="logs-my_app-default", body=body, size=1)
         return res
 
 
