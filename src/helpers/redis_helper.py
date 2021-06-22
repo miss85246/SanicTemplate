@@ -31,8 +31,6 @@ class AbstractRedisClient:
         self.kwargs = kwargs
 
     async def __async__init__(self):
-        if self.redis is not None:
-            raise ImportError("redis is already initialization")
         self.redis = await aioredis.create_redis_pool(f"redis://{self.nodes[0][0]}:{self.nodes[0][1]}",
                                                       db=self.database,
                                                       password=self.password,
@@ -40,6 +38,7 @@ class AbstractRedisClient:
                                                       minsize=self.minsize,
                                                       timeout=self.timeout,
                                                       **self.kwargs)
+        return self
 
     def __await__(self):
         return self.__async__init__().__await__()
@@ -55,8 +54,8 @@ class RedisClient(AbstractRedisClient):
 
     async def example_test(self):
         try:
-            await self.redis.set("zy_test", "123")
-            res = await self.redis.get("zy_test")
+            await self.redis.set("sanic_test", "123")
+            res = await self.redis.get("sanic_test")
             return res
         except Exception as e:
             error_logger.error(msg="执行 example_test 出错", exception=e)
