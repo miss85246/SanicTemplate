@@ -34,10 +34,10 @@ class TestView(HTTPMethodView):
             request_result = await request.app.ctx.request.example_func()
             assert db_result and es_result and redis_result
         except AssertionError as e:
-            await error_logger.error(msg="查询失败,没有返回结果", exception=e)
+            error_logger.error(msg="查询失败,没有返回结果", exception=e)
             return json_response(data={}, status_code=200, status="Not Found")
         except Exception as e:
-            await error_logger.error("TestView异常报错", exception=e)
+            error_logger.error("TestView异常报错", exception=e)
             return json_response(data={}, status_code=500, status="Failed")
         result_data = {
             "test": params.test,
