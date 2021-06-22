@@ -27,8 +27,8 @@ class ServerConfig(BaseConfig):
         "db_type": "mysql",
         "host": "192.168.3.128",
         "port": 3306,
-        "user": "root",
-        "passwd": "root",
+        "username": "root",
+        "password": "root",
         "database": "test",
         "pool_size": 8,
         "pool_recycle": 3600,
@@ -69,5 +69,5 @@ class ServerConfig(BaseConfig):
         "port": "8529",
         "database": "test",
         "username": "root",
-        "password": "datagrand"
+        "password": "123456"
     }
