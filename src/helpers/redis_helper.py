@@ -52,7 +52,7 @@ class RedisClient:
     async def example_test(self):
 
         try:
-            # await self.redis.set("zy_test","123")
+            await self.redis.set("zy_test", "123")
             res = await self.redis.get("zy_test")
             return res
         except Exception as e:
