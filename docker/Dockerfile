@@ -1,22 +1,13 @@
+# 精简 docker build 构建层数
+
 FROM dockerhub.datagrand.com/base_image/centos_py3:product_20200331
-MAINTAINER zanyunfei <zanyunfei@datagrand.com>
 
-ENV TZ=Asia/Shanghai
+ADD ./ /sanic
 
-ADD SanicTemplate /sanic
+RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone && \
+pip install -i https://mirrors.aliyun.com/pypi/simple/ --upgrade pip && \
+pip install -r /sanic/requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &&
-pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --upgrade pip &&
-pip install -r /sanic/requirements.txt -i https://pypi.douban.com/simple/
+WORKDIR /sanic/src
 
-#RUN pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --upgrade pip
-
-#install requires
-#ADD requirements.txt /sanic/requirements.txt
-#RUN pip install -r /sanic/requirements.txt -i https://pypi.douban.com/simple/
-
-#ADD src /sanic
-
-
-
-CMD sh runserver.sh
+CMD ["sh", "runserver.sh"]
