@@ -8,8 +8,9 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-04-28
 """
 
-DEBUG = True
-if not DEBUG:
+Develop = True
+
+if not Develop:
     from .config import config
 else:
     from .dev_config import config
