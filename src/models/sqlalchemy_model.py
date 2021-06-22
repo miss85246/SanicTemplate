@@ -8,8 +8,8 @@ Email: zhangyue@datagrand.com
 CreateTime: 2021-06-17
 """
 
-from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
