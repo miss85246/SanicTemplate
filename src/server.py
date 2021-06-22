@@ -12,7 +12,7 @@ from sanic import Sanic
 from conf import config
 from middlewares import RequestMiddleware, ResponseMiddleware
 from route import server_bp
-from helpers import DBClient, EsClient
+from helpers import DBClient, EsClient, RedisClient, RequestClient
 
 server_app = Sanic("server", log_config=config.LOGGING_CONFIG)
 server_app.config.update_config(config)
@@ -25,6 +25,9 @@ async def server_init(_, __):
     server_app.ctx.db = DBClient(**server_app.config.DB_CONFIG)
     await server_app.ctx.db.session_init()
     server_app.ctx.es = EsClient(**server_app.config.ES_CONFIG)
+    server_app.ctx.redis = RedisClient(**server_app.config.REDIS_CONFIG)
+    await server_app.ctx.redis.redis_init()
+    server_app.ctx.request = RequestClient()
 
 
 @server_app.listener("after_server_start")
