@@ -9,23 +9,26 @@ CreateTime: 2021-04-28
 """
 
 import os
-from inspect import isfunction
-from typing import Any
 import sys
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-class DictConfig(dict):
+class BaseConfig:
     """
     封装的DictConfig 类, 请勿修改此类, 如需修改, 请在 config.py 中进行重写操作
     """
+
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     LOGGING_CONFIG = dict(
         version=1,
         disable_existing_loggers=True,
         loggers={
-            "sanic.root": {"level": "INFO", "handlers": ["console", "info_file"]},
+            "sanic.root": {
+                "level": "INFO",
+                "handlers": ["console", "info_file"],
+                "propagate": True,
+                "qualname": "sanic.root",
+            },
             "sanic.error": {
                 "level": "INFO",
                 "handlers": ["error_console", "error_file"],
@@ -81,22 +84,9 @@ class DictConfig(dict):
                 "class": "logging.Formatter",
             },
             "access": {
-                "format": "%(asctime)s - (%(name)s)[%(levelname)s][%(host)s]: "
-                          + "%(request)s %(message)s %(status)d %(byte)d",
+                "format": "%(asctime)s -[%(levelname)s][%(host)s]: %(request)s %(message)s %(status)d %(byte)d",
                 "datefmt": "[%Y-%m-%d %H:%M:%S %z]",
                 "class": "logging.Formatter",
             },
         },
     )
-
-    def __setattr__(self, key: str, value: Any) -> None:
-        self.update({key: value})
-
-    def __getattr__(self, key: str) -> Any:
-        return self.get(key)
-
-    def update_config(self, _config: Any) -> None:
-        for key in dir(_config):
-            var = getattr(_config, key)
-            if not isfunction(var) and not key.startswith("_"):
-                self.__setattr__(key, var)

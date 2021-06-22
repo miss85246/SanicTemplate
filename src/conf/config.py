@@ -2,29 +2,27 @@
 # -*- coding:utf-8 -*-
 """
 FileName: config
-Description: 
+Description:
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
 """
 
-from .baseConfig import DictConfig
+from conf.baseConfig import BaseConfig
 
 
-class ServerConfig(DictConfig):
+class ServerConfig(BaseConfig):
     """
     项目配置文件, 所有的配置都在此类下实现
     """
-    FALLBACK_ERROR_FORMAT = "json"  # 设定错误返回格式为Json
 
-    SERVER_CONFIG = {
-        "workers": 1,
-        "access_log": False,
-        "host": "127.0.0.1",
-        "port": 5000,
-        "debug": False
-    }
+    # 设定错误返回格式为Json
+    FALLBACK_ERROR_FORMAT = "json"
 
+    # 运行配置
+    SERVER_CONFIG = {"workers": 1, "access_log": False, "host": "0.0.0.0", "port": 5000, "debug": False}
+
+    # 数据库配置
     DB_CONFIG = {
         "db_type": "mysql",
         "host": "192.168.3.128",
@@ -37,29 +35,39 @@ class ServerConfig(DictConfig):
         "pool_pre_ping": True,
         "echo": False,
         "migrate": False
-
     }
 
-    ES_CONFIG = {
-        "nodes": [
-            {"host": "192.168.3.128", "port": "9200"}
-        ],
-        "username": "elastic",
-        "password": "123456"
-    }
+    # ElasticSearch 配置
+    ES_CONFIG = {"nodes": [{"host": "192.168.3.128", "port": "9200"}], "username": "elastic", "password": "123456"}
 
+    # Redis 配置
     REDIS_CONFIG = {
-        "host": "localhost",
-        "port": "26379",
-        "password": "f66sU9iP",
-        "minsize": 2,
-        "maxsize": 8,
-        "timeout": 10,
-        "db": 4
+        "host": "192.168.3.128",
+        "port": "6379",
+        # "password": "f66sU9iP",
+        "database": 0,
+        "minsize": 1,
+        "maxsize": 10,
+        "timeout": 10
     }
 
+    # MongoDB 配置
+    MONGO_CONFIG = {
+        "host": "192.168.3.128",
+        "port": "27017",
+        "username": "root",
+        "password": "root",
+        "database": "test",
+        "collection": "test",
+        "minsize": 1,
+        "maxsize": 10,
+        "timeout": 10 * 1000
+    }
 
-config = ServerConfig
-
-if __name__ == '__main__':
-    print(ServerConfig.LOGGING_CONFIG)
+    ARANGO_CONFIG = {
+        "host": "192.168.3.128",
+        "port": "8529",
+        "database": "test",
+        "username": "root",
+        "password": "datagrand"
+    }
