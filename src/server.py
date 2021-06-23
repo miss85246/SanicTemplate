@@ -22,7 +22,7 @@ server_app.blueprint(server_bp)
 
 @server_app.listener("after_server_start")
 async def server_init(_, __):
-    """用于初始化挂载存储中间件"""
+    """用于初始化各类存储管理类, 可以按需进行修改"""
     server_app.ctx.database = await DBClient(**server_app.config.DB_CONFIG)
     server_app.ctx.es = await EsClient(**server_app.config.ES_CONFIG)
     server_app.ctx.redis = await RedisClient(**server_app.config.REDIS_CONFIG)
@@ -32,22 +32,21 @@ async def server_init(_, __):
 
 
 @server_app.listener("after_server_start")
-async def register_request_middleware(_, __):
-    """注册请求中间件"""
-    for middleware in [func for func in dir(RequestMiddleware) if func.endswith("middleware")]:
-        server_app.register_middleware(getattr(RequestMiddleware, middleware), "request")
-
-
-@server_app.listener("after_server_start")
-async def register_response_middleware(_, __):
-    """注册响应中间件"""
-    for middleware in [func for func in dir(ResponseMiddleware) if func.endswith("middleware")]:
-        server_app.register_middleware(getattr(ResponseMiddleware, middleware), "response")
+async def register_middleware(_, __):
+    """注册请求/响应中间件"""
+    [server_app.register_middleware(middleware, "request") for middleware in RequestMiddleware().middlewares]
+    [server_app.register_middleware(middleware, "response") for middleware in ResponseMiddleware().middlewares]
 
 
 @server_app.listener("before_server_stop")
 async def server_shutdown(_, __):
-    pass
+    """注销初始化时各类存储管理类, 可以按需进行修改"""
+    await server_app.ctx.database.close()
+    await server_app.ctx.es.close()
+    await server_app.ctx.redis.close()
+    await server_app.ctx.request.close()
+    await server_app.ctx.arangodb.close()
+    await server_app.ctx.mongo.close()
 
 
 if __name__ == '__main__':
