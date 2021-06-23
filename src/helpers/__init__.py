@@ -7,6 +7,7 @@ Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-06-16
 """
+from abstract_helper import AbstractEsClient, AbstractArangoDBClient
 from .arangodb_helper import ArangoDBClient
 from .es_helper import EsClient
 from .mongo_helper import MongoClient

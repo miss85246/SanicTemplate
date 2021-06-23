@@ -12,30 +12,9 @@ CreateTime: 2021-06-18
 
 import asyncio
 
-from aioarangodb import ArangoClient
-
-from utils import error_logger
-
 from conf import config
-
-
-class AbstractArangoDBClient:
-
-    def __init__(self, host: str, port: str, database: str, username: str, password: str, **kwargs):
-        self.client = None
-        self._host = host
-        self._port = port
-        self._database = database
-        self._username = username
-        self._password = password
-
-    async def __async_init__(self):
-        client = ArangoClient(hosts=f"http://{self._host}:{self._port}")
-        self.client = await client.db(name=self._database, username=self._username, password=self._password)
-        return self
-
-    def __await__(self):
-        return self.__async_init__().__await__()
+from helpers.abstract_helper import AbstractArangoDBClient
+from utils import error_logger
 
 
 class ArangoDBClient(AbstractArangoDBClient):
