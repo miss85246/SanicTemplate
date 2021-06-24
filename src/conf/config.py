@@ -38,7 +38,7 @@ class ServerConfig(BaseConfig):
     }
 
     # ElasticSearch 配置
-    ES_CONFIG = {"nodes": [{"host": "localhost", "port": "9200"}], "username": "elastic", "password": "123456"}
+    ES_CONFIG = {"nodes": [{"host": "localhost", "port": 9200}], "username": "elastic", "password": "123456"}
 
     # Redis 配置
     REDIS_CONFIG = {
