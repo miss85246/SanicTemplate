@@ -43,7 +43,7 @@ class ServerConfig(BaseConfig):
     # Redis 配置
     REDIS_CONFIG = {
         "host": "localhost",
-        "port": "6379",
+        "port": 6379,
         # "password": "f66sU9iP",
         "database": 0,
         "minsize": 1,
@@ -54,7 +54,7 @@ class ServerConfig(BaseConfig):
     # MongoDB 配置
     MONGO_CONFIG = {
         "host": "localhost",
-        "port": "27017",
+        "port": 27017,
         "username": "root",
         "password": "root",
         "database": "test",
@@ -66,7 +66,7 @@ class ServerConfig(BaseConfig):
 
     ARANGO_CONFIG = {
         "host": "localhost",
-        "port": "8529",
+        "port": 8529,
         "database": "test",
         "username": "root",
         "password": "root"
