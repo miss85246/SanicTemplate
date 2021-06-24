@@ -19,7 +19,7 @@ class RedisClient(AbstractRedisClient):
     def __init__(self, host: str = None, port: str = None, password: str = None, mode: str = "normal", **kwargs):
         super().__init__(host, port, password, mode, **kwargs)
 
-    async def example_test(self):
+    async def example_func(self):
         try:
             await self.redis.set("sanic_test", "123")
             res = await self.redis.get("sanic_test")
@@ -31,5 +31,5 @@ class RedisClient(AbstractRedisClient):
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     redis_cli = loop.run_until_complete(RedisClient(**config.REDIS_CONFIG))
-    print(loop.run_until_complete(redis_cli.example_test()))
-    print(loop.run_until_complete(redis_cli.close()))
+    print(loop.run_until_complete(redis_cli.example_func()))
+    loop.run_until_complete(redis_cli.close())

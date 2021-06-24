@@ -19,7 +19,7 @@ class EsClient(AbstractEsClient):
     def __init__(self, host: str = None, port: str = None, username: str = "", password: str = "", **kwargs):
         super().__init__(host, port, username, password, **kwargs)
 
-    async def example_functions(self):
+    async def example_func(self):
         try:
             body = {"query": {"match_all": {}}}
             res = await self.client.search(index="logs-my_app-default", body=body, size=1)
@@ -31,5 +31,5 @@ class EsClient(AbstractEsClient):
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     es_client = loop.run_until_complete(EsClient(**config.ES_CONFIG))
-    print(loop.run_until_complete(es_client.example_functions()))
-    print(loop.run_until_complete(es_client.close()))
+    print(loop.run_until_complete(es_client.example_func()))
+    loop.run_until_complete(es_client.close())

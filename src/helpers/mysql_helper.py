@@ -36,4 +36,4 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     db_client = loop.run_until_complete(DBClient(**config.DB_CONFIG))
     print(loop.run_until_complete(db_client.example_func(1)))
-    print(loop.run_until_complete(db_client.close()))
+    loop.run_until_complete(db_client.close())

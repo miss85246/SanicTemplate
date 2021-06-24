@@ -33,4 +33,4 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     mongo_client = loop.run_until_complete(MongoClient(**config.MONGO_CONFIG))
     print(loop.run_until_complete(mongo_client.example_func()))
-    print(loop.run_until_complete(mongo_client.close()))
+    loop.run_until_complete(mongo_client.close())
