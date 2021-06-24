@@ -30,9 +30,9 @@ class TestView(HTTPMethodView):
         # 从读取的内容中提取相关联的文档信息
         try:
             db_result = await request.app.ctx.database.example_func(filter_id=params.test)
-            es_result = await request.app.ctx.es.example_functions()
-            redis_result = await request.app.ctx.redis.example_test()
-            arango_result = await request.app.ctx.arangodb.get_collections()
+            es_result = await request.app.ctx.es.example_func()
+            redis_result = await request.app.ctx.redis.example_func()
+            arango_result = await request.app.ctx.arangodb.example_func()
             request_result = await request.app.ctx.request.example_func()
             assert db_result and es_result and redis_result
         except AssertionError as e:
