@@ -32,6 +32,7 @@ class TestView(HTTPMethodView):
             db_result = await request.app.ctx.database.example_func(filter_id=params.test)
             es_result = await request.app.ctx.es.example_functions()
             redis_result = await request.app.ctx.redis.example_test()
+            arango_result = await request.app.ctx.arangodb.get_collections()
             request_result = await request.app.ctx.request.example_func()
             assert db_result and es_result and redis_result
         except AssertionError as e:
@@ -45,6 +46,7 @@ class TestView(HTTPMethodView):
             "db_result": db_result,
             "es_result": es_result,
             "redis_result": redis_result,
-            "request_result": request_result
+            "request_result": request_result,
+            "arango_result": arango_result
         }
         return json_response(data=result_data, status_code=200, status="OK")
