@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: config
-Description:
+Description: 测试环境项目配置文件
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
@@ -25,7 +25,7 @@ class ServerConfig(BaseConfig):
     # 数据库配置
     DB_CONFIG = {
         "db_type": "mysql",
-        "host": "192.168.3.128",
+        "host": "localhost",
         "port": 3306,
         "username": "root",
         "password": "root",
@@ -38,11 +38,11 @@ class ServerConfig(BaseConfig):
     }
 
     # ElasticSearch 配置
-    ES_CONFIG = {"nodes": [{"host": "192.168.3.128", "port": "9200"}], "username": "elastic", "password": "123456"}
+    ES_CONFIG = {"nodes": [{"host": "localhost", "port": "9200"}], "username": "elastic", "password": "123456"}
 
     # Redis 配置
     REDIS_CONFIG = {
-        "host": "192.168.3.128",
+        "host": "localhost",
         "port": "6379",
         # "password": "f66sU9iP",
         "database": 0,
@@ -53,7 +53,7 @@ class ServerConfig(BaseConfig):
 
     # MongoDB 配置
     MONGO_CONFIG = {
-        "host": "192.168.3.128",
+        "host": "localhost",
         "port": "27017",
         "username": "root",
         "password": "root",
@@ -65,9 +65,9 @@ class ServerConfig(BaseConfig):
     }
 
     ARANGO_CONFIG = {
-        "host": "192.168.3.128",
+        "host": "localhost",
         "port": "8529",
         "database": "test",
         "username": "root",
-        "password": "123456"
+        "password": "root"
     }

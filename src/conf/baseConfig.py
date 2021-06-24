@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: config
-Description: 基础配置文件, 封装了 DictConfig 类, 请勿更改此文件
+Description: 基础配置文件, 封装了 BaseConfig 类, 请勿更改此文件
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-04-28
@@ -10,9 +10,10 @@ CreateTime: 2021-04-28
 
 import os
 import sys
+from abc import ABCMeta
 
 
-class BaseConfig:
+class BaseConfig(metaclass=ABCMeta):
     """
     封装的DictConfig 类, 请勿修改此类, 如需修改, 请在 config.py 中进行重写操作
     """
