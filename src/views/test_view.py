@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: entity_related_doc
-Description: 通过实体获取相关联的文档信息
+Description: 测试视图
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
