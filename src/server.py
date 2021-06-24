@@ -44,7 +44,6 @@ async def server_shutdown(_, __):
     await server_app.ctx.database.close()
     await server_app.ctx.es.close()
     await server_app.ctx.redis.close()
-    await server_app.ctx.request.close()
     await server_app.ctx.arangodb.close()
     await server_app.ctx.mongo.close()
 
