@@ -33,15 +33,15 @@ class AbstractArangoDBClient(metaclass=ABCMeta):
         self._password = password
 
     async def __async_init__(self):
-        client = ArangoClient(hosts=f"http://{self._host}:{self._port}")
-        self.client = await client.db(name=self._database, username=self._username, password=self._password)
+        self.connection = ArangoClient(hosts=f"http://{self._host}:{self._port}")
+        self.client = await self.connection.db(name=self._database, username=self._username, password=self._password)
         return self
 
     def __await__(self):
         return self.__async_init__().__await__()
 
     async def close(self):
-        await self.client.close()
+        await self.connection.close()
 
 
 class AbstractDBClient(metaclass=ABCMeta):
@@ -166,7 +166,7 @@ class AbstractMongoClient(metaclass=ABCMeta):
         return self.__async__init__().__await__()
 
     async def close(self):
-        await self.session.close()
+        await self.session.end_session()
 
 
 class AbstractRedisClient(metaclass=ABCMeta):
