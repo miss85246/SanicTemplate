@@ -19,8 +19,8 @@ from utils import error_logger
 
 class ArangoDBClient(AbstractArangoDBClient):
 
-    def __init__(self, host: str, port: str, database: str, username: str, password: str, **kwargs):
-        super().__init__(host, port, database, username, password, **kwargs)
+    def __init__(self, host: str, port: int, database: str, username: str, password: str):
+        super().__init__(host, port, database, username, password)
 
     async def example_func(self):
         try:

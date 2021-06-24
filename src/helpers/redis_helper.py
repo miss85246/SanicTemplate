@@ -16,7 +16,7 @@ from utils import error_logger
 
 class RedisClient(AbstractRedisClient):
 
-    def __init__(self, host: str = None, port: str = None, password: str = None, mode: str = "normal", **kwargs):
+    def __init__(self, host: str = None, port: int = None, password: str = None, mode: str = "normal", **kwargs):
         super().__init__(host, port, password, mode, **kwargs)
 
     async def example_func(self):

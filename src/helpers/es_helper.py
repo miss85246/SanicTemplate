@@ -16,7 +16,7 @@ from utils import error_logger
 
 class EsClient(AbstractEsClient):
 
-    def __init__(self, host: str = None, port: str = None, username: str = "", password: str = "", **kwargs):
+    def __init__(self, host: str = None, port: int = None, username: str = "", password: str = "", **kwargs):
         super().__init__(host, port, username, password, **kwargs)
 
     async def example_func(self):

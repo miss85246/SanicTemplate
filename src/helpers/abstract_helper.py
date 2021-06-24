@@ -24,17 +24,18 @@ from models.sqlalchemy_model import Base
 
 class AbstractArangoDBClient(metaclass=ABCMeta):
 
-    def __init__(self, host: str, port: str, database: str, username: str, password: str, **kwargs):
+    def __init__(self, host: str, port: int, database: str, username: str, password: str):
+        self.connection = None
         self.client = None
-        self._host = host
-        self._port = port
-        self._database = database
-        self._username = username
-        self._password = password
+        self.host = host
+        self.port = port
+        self.database = database
+        self.username = username
+        self.password = password
 
     async def __async_init__(self):
-        self.connection = ArangoClient(hosts=f"http://{self._host}:{self._port}")
-        self.client = await self.connection.db(name=self._database, username=self._username, password=self._password)
+        self.connection = ArangoClient(hosts="http" + f"://{self.host}:{self.port}")
+        self.client = await self.connection.db(name=self.database, username=self.username, password=self.password)
         return self
 
     def __await__(self):
@@ -50,11 +51,6 @@ class AbstractDBClient(metaclass=ABCMeta):
         engine_dict = {"mysql": "aiomysql", "postgresql": "asyncpg", "sqlite": "aiosqlite"}
         self.db = db_type
         self.engine = engine_dict.get(db_type)
-        self.username = username
-        self.password = password
-        self.host = host
-        self.port = port
-        self.database = database
         self.pool_size = kwargs.get("pool_size", 8)
         self.pool_recycle = kwargs.get("pool_recycle", 3600)
         self.pool_timeout = kwargs.get("pool_timeout", 10)
@@ -81,8 +77,7 @@ class AbstractDBClient(metaclass=ABCMeta):
         self.session = sessionmaker(self.engine, expire_on_commit=False, class_=AsyncSession)
 
         if self.migrate:
-            async with self.session.begin() as session:
-                pass
+            await self.session_begin()
 
         return self
 
@@ -101,22 +96,26 @@ class AbstractDBClient(metaclass=ABCMeta):
                 result.append(item.__getattribute__("_asdict")())
         return result
 
+    async def session_begin(self):
+        async with self.session.begin() as session:
+            pass
+
     async def close(self):
         await self.engine.dispose()
 
 
 class AbstractEsClient(metaclass=ABCMeta):
 
-    def __init__(self, host: str = None, port: str = None, username: str = "", password: str = "", **kwargs):
+    def __init__(self, host: str = None, port: int = None, username: str = "", password: str = "", **kwargs):
         if host and port and not kwargs.get("nodes"):
             self.nodes = [{"host": host, "port": port}]
         else:
             nodes = kwargs.get("nodes")
             if not isinstance(nodes, Iterable):
-                raise TypeError("nodes argument must be Iterable, example: [{'host':'localhost', 'port':'9200'}]")
+                raise TypeError("nodes argument must be Iterable, example: [{'host':'localhost', 'port':9200}]")
             for node in nodes:
                 if not node.get("host") or not node.get("port"):
-                    raise ValueError("host and port must in node")
+                    raise ValueError("host and port must in node, example: {'host':'localhost', 'port':9200}")
             self.nodes = nodes
         self.client = None
         self.username = username
@@ -171,7 +170,7 @@ class AbstractMongoClient(metaclass=ABCMeta):
 
 class AbstractRedisClient(metaclass=ABCMeta):
 
-    def __init__(self, host: str = None, port: str = None, password: str = None, mode: str = "normal", **kwargs):
+    def __init__(self, host: str = None, port: int = None, password: str = None, mode: str = "normal", **kwargs):
         self.redis = None
         self.kwargs = kwargs
         self.mode = mode
