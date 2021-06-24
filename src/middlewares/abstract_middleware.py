@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: abstract_middleware
-Description: 
+Description: 抽象中间件类，请求中间件与响应中间件类都继承于此
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-06-23

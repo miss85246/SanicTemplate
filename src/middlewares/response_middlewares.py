@@ -18,18 +18,14 @@ from utils import json_response
 
 class ResponseMiddleware(AbstractMiddleware):
     """
-    返回中间件类, 执行顺序自下而上
+    返回中间件类, 主意执行顺序
     """
     MIDDLEWARES = []
 
     @staticmethod
     async def response_code_check_middleware(request, response):
-        """
-        检查返回结果代码中间件, 返回
-        {'status': status, 'request_id': request_id, 'result_data': data or {}}
-        :param request:
-        :param response:
-        """
+        """检查返回结果代码中间件"""
+        print(type(request), type(response))
         resp = loads(response.body)
         if resp.get("status", "FAILED") != "OK":
             error_msg = f"访问路由<{request.path}>失败, 请求方式:{request.method},"

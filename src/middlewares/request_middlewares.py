@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: request_middlewares
-Description: 请求中间件
+Description: 请求中间件类
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
@@ -14,9 +14,7 @@ from middlewares.abstract_middleware import AbstractMiddleware
 
 
 class RequestMiddleware(AbstractMiddleware):
-    """
-    请求中间件类, 注意顺序
-    """
+    """请求中间件类, 注意顺序"""
 
     MIDDLEWARES = ['ab_middleware', 'test_middleware', 'ba_middleware']
 
