@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: sqlalchemy_model
-Description: 
+Description: SQLAlchemy 模型， 用于进行数据库关系映射
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-06-17
