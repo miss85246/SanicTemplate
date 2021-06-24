@@ -20,7 +20,7 @@ class ServerConfig(BaseConfig):
     FALLBACK_ERROR_FORMAT = "json"
 
     # 运行配置
-    SERVER_CONFIG = {"workers": 1, "access_log": False, "host": "0.0.0.0", "port": 5000, "debug": False}
+    SERVER_CONFIG = {"workers": 4, "access_log": False, "host": "0.0.0.0", "port": 5000, "debug": False}
 
     # 数据库配置
     DB_CONFIG = {
