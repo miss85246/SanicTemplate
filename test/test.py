@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 FileName: test
-Description: 
+Description: 测试文件, 使用 sanic 自带的 test_client 进行测试
 Author: ConnorZhang
 Email: zhangyue@datagrand.com
 CreateTime: 2021-05-24
@@ -11,19 +11,18 @@ import json
 import unittest
 from unittest import TestCase
 
-import requests
+from server import server_app
 
 
 class Test(TestCase):
 
     def setUp(self) -> None:
-        pass
+        self.client = server_app.test_client
 
-    def test_test(self):
-        url = "http://localhost:5000/test"
+    def test_by_client(self):
         params = {"test": "1"}
-        res = requests.post(url, json=params)
-        print(json.dumps(res.json(), indent=2, ensure_ascii=True))
+        req, resp = self.client.post("/test", json=params)
+        print(json.dumps(resp.json, indent=2, ensure_ascii=True))
 
     def tearDown(self) -> None:
         pass
