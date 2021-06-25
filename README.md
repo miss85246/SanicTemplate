@@ -127,17 +127,17 @@ SanicTemplate 为您准备了 deploy 文件夹，该文件夹下包含了 启动
 
 ### 项目测试
 
-在 test 文件夹下, 配置了 test.py 文件, 该文件使用了 sanic 的 test_client, 通过 test_client 您可以轻松的对视图进行测试,而不需要频繁地去自己手动启动/关闭项目
+在 test 文件夹下，配置了 test.py 文件，该文件使用了 sanic 的 test_client，通过 test_client 您可以轻松的对视图进行测试,而不需要频繁地去自己手动启动/关闭项目
 
 ### 项目部署
 
-SanicTemplate 为您准备了 docker 文件夹, 该文件夹会帮您自动生成 Docker 镜像, 并自动上传到 dockerhub, 您只需配置自己项目名称和 TAG_PREFIX 即可
+SanicTemplate 为您准备了 docker 文件夹，该文件夹会帮您自动生成 Docker 镜像，并自动上传到 dockerhub，您只需配置自己项目名称和 TAG_PREFIX 即可
 
 ## 试用指导
 
-如果您以前没有用过 sanic 或者 flask, 请不要担心这里为您提供了完整的试用指导:
+如果您以前没有用过 sanic，请不要担心这里为您提供了完整的试用指导:
 
-1. 解压 `test/store.zip`, 并进入到解压目录
+1. 解压 `test/store.zip`，并进入到解压目录
 
 ```shell
 cd ./test || exit
@@ -152,12 +152,12 @@ docker create network -d bridge store
 docker-compose up -d
 ```
 
-3. 如果 不想使用 `docker-compose` 进行部署, 可以使用编写好的脚本进行启动
+3. 如果 不想使用 `docker-compose` 进行部署，可以使用编写好的脚本进行启动
 ```shell
 sh start.sh
 ```
 
-4. 前置工作准备完成之后, 即可准备启动 Web 服务:
+4. 前置工作准备完成之后，即可准备启动 Web 服务:
 
 ```shell
 cd ../deploy 
@@ -173,4 +173,9 @@ python3 test.py
 
 ## 参与贡献
 
-如果您希望参与项目, 请联系 [张越(zhangyue@datagrand.com)](https://git.datagrand.com/zhangyue)
+如果您希望参与项目，请联系 [张越(zhangyue@datagrand.com)](https://git.datagrand.com/zhangyue)
+
+## 更多 Sanic 的使用指导
+
+如果您希望更深一步的了解 Sanic 具有哪些特性，如何调优，请参考 [Sanic官方文档](https://sanicframework.org/zh/)。 目前已全面支持中文文档，看起来更省力!
+
