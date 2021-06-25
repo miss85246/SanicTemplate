@@ -1,5 +1,10 @@
 # SanicTemplate 项目
 
+## 配置要求
+
+Python3.7+
+Docker 19.06+
+
 ## 项目简介
 
 SanicTemplate 是基于 Sanic 的 Web 开发框架，该项目帮助完成了Sanic项目模板的封装。项目特点:
@@ -127,6 +132,44 @@ SanicTemplate 为您准备了 deploy 文件夹，该文件夹下包含了 启动
 ### 项目部署
 
 SanicTemplate 为您准备了 docker 文件夹, 该文件夹会帮您自动生成 Docker 镜像, 并自动上传到 dockerhub, 您只需配置自己项目名称和 TAG_PREFIX 即可
+
+## 试用指导
+
+如果您以前没有用过 sanic 或者 flask, 请不要担心这里为您提供了完整的试用指导:
+
+1. 解压 `test/store.zip`, 并进入到解压目录
+
+```shell
+cd ./test || exit
+unzip store.zip
+cd store
+```
+
+2. 使用 `docker-compose` 运行对应内容
+
+```shell
+docker create network -d bridge store
+docker-compose up -d
+```
+
+3. 如果 不想使用 `docker-compose` 进行部署, 可以使用编写好的脚本进行启动
+```shell
+sh start.sh
+```
+
+4. 前置工作准备完成之后, 即可准备启动 Web 服务:
+
+```shell
+cd ../deploy 
+sh start.sh
+```
+
+5. 进行访问测试:
+
+```shell
+cd ../test
+python3 test.py
+```
 
 ## 参与贡献
 
