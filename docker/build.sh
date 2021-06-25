@@ -1,10 +1,15 @@
 #!/bin/sh
 cd ..
+PUSH_SWITCH=false
+echo "${PUSH_SWITCH}"
+PROJECT_NAME="sanic_template"
+TAG_PREFIX="dockerhub.datagrand.com/databj/zhangyue"
+UUID="$(uuidgen)"
+SUFFIX="${PROJECT_NAME}:$(date +%Y%m%d)_${UUID##*-}"
+IMAGE_TAG="${TAG_PREFIX}/${SUFFIX}"
 
-TIME_NOW=$(date +%Y%m%d)
-UUID=$(uuidgen)
-UUID=${UUID##*-}
-SUFFIX="${TIME_NOW}_${UUID}"
+docker build -f docker/Dockerfile -t "${IMAGE_TAG}" .
 
-docker build -f docker/Dockerfile -t dockerhub.datagrand.com/databj/zhangyue/sanic_template:"${SUFFIX}" .
-#docker push dockerhub.datagrand.com/databj/zhangyue/sanicTemplate:"${SUFFIX}"
+if ${PUSH_SWITCH}; then
+  docker push IMAGE_TAG
+fi
