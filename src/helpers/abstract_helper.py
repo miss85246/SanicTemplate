@@ -134,7 +134,6 @@ class AbstractEsClient(metaclass=ABCMeta):
 
 
 class AbstractMongoClient(metaclass=ABCMeta):
-    """抽象类, 封装了 MongoDB 初始化, 请勿在此类上进行修改"""
 
     def __init__(self, host: str, port: int, username: str = None, password: str = None, **kwargs):
         self.username = username
