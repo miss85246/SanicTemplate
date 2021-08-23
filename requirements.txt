@@ -10,3 +10,4 @@ aiohttp~=3.7.4.post0
 motor~=2.4.0
 aioarangodb~=0.1.2
 sanic_testing==0.6.0
+httpx~=0.18.2

@@ -12,6 +12,7 @@ from abc import ABCMeta
 from typing import Iterable, Any
 
 import aioredis
+import httpx
 from aioarangodb import ArangoClient
 from elasticsearch import AsyncElasticsearch
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -197,3 +198,53 @@ class AbstractRedisClient(metaclass=ABCMeta):
 
     async def close(self):
         self.redis.close()
+
+
+class AbstractHttpClient(metaclass=ABCMeta):
+    def __init__(self, timeout=10, retry=5, status_retry=True):
+        self.session = httpx.AsyncClient()
+        self.retry = retry
+        self.status_retry = status_retry
+        self.timeout = timeout
+
+    async def __async__init__(self):
+        return self
+
+    def __await__(self):
+        return self.__async__init__().__await__()
+
+    async def send(self, method: str, *args: Any, **kwargs: Any) -> httpx.Response:
+        for sent_times in range(self.retry):
+            try:
+                request = getattr(self.session, method.lower(), self.session.get)
+                result = await request(*args, **kwargs, timeout=self.timeout)
+                if self.return_rules(sent_times, result):
+                    return result
+            except httpx.TimeoutException:
+                self.timeout_rules()
+        raise httpx.RequestError(f"All Request Failed in {self.retry} Times")
+
+    def return_rules(self, sent_times: int, result: httpx.Response) -> bool:
+        if result.status_code == 200 and sent_times < self.retry:
+            return True
+
+    def timeout_rules(self, *args, **kwargs) -> Any:
+        pass
+
+    async def get(self, *args: Any, **kwargs: Any) -> httpx.Response:
+        return await self.send("get", *args, **kwargs)
+
+    async def post(self, *args: Any, **kwargs: Any) -> httpx.Response:
+        return await self.send("post", *args, **kwargs)
+
+    async def put(self, *args: Any, **kwargs: Any) -> httpx.Response:
+        return await self.send("put", *args, **kwargs)
+
+    async def head(self, *args: Any, **kwargs: Any) -> httpx.Response:
+        return await self.send("head", *args, **kwargs)
+
+    async def options(self, *args: Any, **kwargs: Any) -> httpx.Response:
+        return await self.send("options", *args, **kwargs)
+
+    async def close(self):
+        await self.session.aclose()

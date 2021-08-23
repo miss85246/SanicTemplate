@@ -9,21 +9,23 @@ CreateTime: 2021-06-21
 """
 import asyncio
 
-import aiohttp
+from helpers.abstract_helper import AbstractHttpClient
 
 
-class RequestClient:
+class RequestClient(AbstractHttpClient):
 
     def __init__(self):
-        self.bar = "bar"
+        super().__init__(timeout=10, retry=5, status_retry=True)
+        self.session.headers.update({"User-Agent": "Sanic HttpClient Test"})
 
     async def example_func(self):
-        async with aiohttp.ClientSession() as session:
-            resp = await session.get("http://httpbin.org/get", params={"foo": self.bar})
-        return await resp.json()
+        resp = await self.post("https://httpbin.org/post", json={"foo": "bar"})
+        return resp.json()
 
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    http_client = RequestClient()
-    print(loop.run_until_complete(http_client.example_func()))
+    client = loop.run_until_complete(RequestClient())
+    res = loop.run_until_complete(client.example_func())
+    loop.run_until_complete(client.close())
+    print(res)
