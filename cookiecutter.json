@@ -1,0 +1,25 @@
+{
+  "project_name": "SanicProject",
+  "maintainer": "ConnorZhang",
+  "email": "zhangyue@datagrand.com",
+  "docker_repo_name": "",
+  "enable_jwt": false,
+  "enable_arangodb": false,
+  "enable_database": false,
+  "db_type": "mysql",
+  "enable_elasticsearch": false,
+  "enable_httpx": false,
+  "enable_mongodb": false,
+  "enable_redis": false,
+  "auto_push_docker_image": false,
+  "department": "databj",
+  "server_workers_count": 4,
+  "server_bind_host": "0.0.0.0",
+  "server_bind_port": 5000,
+  "_extensions": [
+    "jinja2_time.TimeExtension",
+    "jinja2.ext.do",
+    "cookiecutter.extensions.RandomStringExtension"
+  ],
+  "enable_helpers": false
+}
