@@ -68,7 +68,7 @@ class AfterProjectCreated:
         cls.git_init()
 
 
-# AfterProjectCreated.run()
+AfterProjectCreated.run()
 
 if __name__ == '__main__':
     pass
