@@ -21,5 +21,7 @@
     "jinja2.ext.do",
     "cookiecutter.extensions.RandomStringExtension"
   ],
-  "enable_helpers": false
+  "enable_helpers": false,
+  "now_path": ".",
+  "project_path": "./SanicProject"
 }
