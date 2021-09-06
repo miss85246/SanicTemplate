@@ -18,8 +18,6 @@ class AfterProjectCreated:
     def git_init():
         """Git 初始化操作"""
         subprocess.call(["git", "init"])
-        # subprocess.call(["git", "add", ".gitignore"])
-        # subprocess.call(["git", "commit", "-m", "'add .gitignore file'"])
         subprocess.call(["git", "add", "."])
 
     @staticmethod
@@ -73,4 +71,4 @@ class AfterProjectCreated:
 # AfterProjectCreated.run()
 
 if __name__ == '__main__':
-    AfterProjectCreated.generate_environment()
+    pass

@@ -13,6 +13,7 @@ def timer():
             end_time = time()
             cost_time = start_time - end_time
             logger.info(f"函数 {cost_time} 执行完毕，共耗时：{cost_time} 秒")
+            print(f"函数 {cost_time} 执行完毕，共耗时：{cost_time} 秒")
 
         return timer_function
 
