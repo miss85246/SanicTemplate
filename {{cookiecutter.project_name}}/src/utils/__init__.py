@@ -10,5 +10,6 @@ CreateTime: {% now 'local' %}
 
 from .logger import error_logger
 from .response import json_response
+from .timer import timer
 
-__all__ = ["json_response", "error_logger"]
+__all__ = ["json_response", "error_logger", "timer"]
