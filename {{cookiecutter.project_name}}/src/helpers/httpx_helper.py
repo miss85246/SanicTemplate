@@ -11,6 +11,7 @@ CreateTime: {% now 'local' %}
 import asyncio
 
 from helpers.abstract_helper import AbstractHttpxClient
+from utils import timer
 
 
 class HttpxClient(AbstractHttpxClient):
@@ -19,6 +20,7 @@ class HttpxClient(AbstractHttpxClient):
         super().__init__(timeout=10, retry=5, status_retry=True)
         self.session.headers.update({"User-Agent": "Sanic HttpClient Test"})
 
+    @timer()
     async def example_func(self):
         resp = await self.post("https://httpbin.org/post", json={"foo": "bar"})
         return resp.json()

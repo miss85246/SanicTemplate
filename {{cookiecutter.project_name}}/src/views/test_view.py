@@ -33,4 +33,11 @@ class TestView(HTTPMethodView):
         :param params: {entity:实体名称}
         :return:
         """
-        return json_response(data={"foo": "bar"}, status_code=200, status="OK")
+
+        # cookiecutter_flag {%- if cookiecutter.enable_httpx == 'True' %}
+        res = request.ctx.httpx.example_func()
+        # cookiecutter_flag {%- else %}
+        res = {"foo": "bar"}
+        # cookiecutter_flag {%- endif %}
+
+        return json_response(data=res, status_code=200, status="OK")
