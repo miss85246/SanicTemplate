@@ -23,7 +23,7 @@ class AfterProjectCreated:
     @staticmethod
     def cleanup_cookiecutter_flags():
         """替换文件内残留的 cookiecutter_flag"""
-        for root, dirs, files in os.walk(''):
+        for root, dirs, files in os.walk('{{cookiecutter.project_path}}'):
             for file in files:
                 if file.endswith(".py"):
                     f = open(os.path.join(root, file), 'r+', encoding='utf8')
@@ -38,7 +38,7 @@ class AfterProjectCreated:
     @staticmethod
     def cleanup_temporary_files():
         """清除临时文件"""
-        for root, dirs, files in os.walk(''):
+        for root, dirs, files in os.walk('{{cookiecutter.project_path}}'):
             for file in files:
                 subprocess.call(["echo", os.path.join(root, file)])
                 if file.endswith(".pyc") or len(open(os.path.join(root, file), "r", encoding="utf8").read()) == 0:
