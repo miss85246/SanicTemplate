@@ -25,7 +25,6 @@ class AfterProjectCreated:
         """替换文件内残留的 cookiecutter_flag"""
         for root, dirs, files in os.walk('{{cookiecutter.project_path}}'):
             for file in files:
-                subprocess.call(["echo", file])
                 if file.endswith(".py"):
                     f = open(os.path.join(root, file), 'r+', encoding='utf8')
                     lines = f.readlines()
@@ -51,21 +50,24 @@ class AfterProjectCreated:
         """创建 Python 虚拟环境, 目前仅支持 virtualenv—wrappers 和 virtualenv"""
         workon_home = subprocess.getoutput("echo $WORKON_HOME")
         default_workon_home = os.path.join(os.environ["HOME"], ".virtualenvs")
+        now_path = "{{cookiecutter.now_path}}"
+        project_path = "{{cookiecutter.project_path}}"
+        env_name = "{{cookiecutter.env_name}}"
         if not workon_home:
             subprocess.call(["mkdir", default_workon_home])
             workon_home = default_workon_home
-        now_path = subprocess.getoutput("pwd")
         os.chdir(workon_home)
-        subprocess.call(["python3", "-m", "venv", "CCD"])
+        subprocess.call(["python3", "-m", "venv", env_name])
         os.chdir(now_path)
-        environment_python_path = os.path.join(os.path.join(os.path.join(default_workon_home, "CCD"), "bin"), "python3")
-        subprocess.call([environment_python_path, "-m", "pip", "install", "-r", "requirements.txt"])
+        env_python_path = os.path.join(os.path.join(os.path.join(default_workon_home, env_name), "bin"), "python3")
+        subprocess.call([env_python_path, "-m", "pip", "install", "-r", os.path.join(project_path, "requirements.txt")])
 
     @classmethod
     def run(cls):
         cls.cleanup_cookiecutter_flags()
         cls.cleanup_temporary_files()
         cls.git_init()
+        cls.generate_environment()
 
 
 AfterProjectCreated.run()
