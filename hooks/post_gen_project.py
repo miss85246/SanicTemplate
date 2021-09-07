@@ -25,6 +25,7 @@ class AfterProjectCreated:
         """替换文件内残留的 cookiecutter_flag"""
         for root, dirs, files in os.walk('{{cookiecutter.project_path}}'):
             for file in files:
+                subprocess.call(["echo", file])
                 if file.endswith(".py"):
                     f = open(os.path.join(root, file), 'r+', encoding='utf8')
                     lines = f.readlines()
@@ -40,7 +41,6 @@ class AfterProjectCreated:
         """清除临时文件"""
         for root, dirs, files in os.walk('{{cookiecutter.project_path}}'):
             for file in files:
-                subprocess.call(["echo", os.path.join(root, file)])
                 if file.endswith(".pyc") or len(open(os.path.join(root, file), "r", encoding="utf8").read()) == 0:
                     os.remove(os.path.join(root, file))
             if not files or root.endswith("__pycache__"):
