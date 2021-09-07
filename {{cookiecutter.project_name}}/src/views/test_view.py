@@ -35,7 +35,7 @@ class TestView(HTTPMethodView):
         """
 
         # cookiecutter_flag {%- if cookiecutter.enable_httpx == 'True' %}
-        res = await request.ctx.httpx.example_func()
+        res = await request.app.ctx.httpx.example_func()
         # cookiecutter_flag {%- else %}
         res = {"foo": "bar"}
         # cookiecutter_flag {%- endif %}
