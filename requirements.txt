@@ -1,0 +1,14 @@
+aioarangodb~=0.1.2
+aiokafka ~=0.7.2
+aiomysql==0.0.21
+aioredis~=2.0.0
+bson~=0.5.10
+elasticsearch[async]~=7.13.4
+httpx~=0.18.2
+motor~=2.5.1
+requests==2.23.0
+sanic == 21.6.2
+sanic_dantic==1.1.8
+sanic-testing==0.6.0
+SQLAlchemy[async]~=1.4.23
+sanic-jwt==1.7.0
