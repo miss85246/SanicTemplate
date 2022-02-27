@@ -173,7 +173,7 @@ python3 test.py
 
 ## 参与贡献
 
-如果您希望参与项目，请联系 [张越(zhangyue@datagrand.com)](https://git.datagrand.com/zhangyue)
+如果您希望参与项目，请联系 [ConnorZhang](chzhangyue@outlook.com)
 
 ## 更多 Sanic 的使用指导
 
